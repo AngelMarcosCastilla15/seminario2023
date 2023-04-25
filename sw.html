@@ -56,8 +56,15 @@
 
         function getPeople(idPeople) {
           fetch(`https://swapi.dev/api/people/${idPeople}`)
-            .then((response) => response.json())
-            .then(paintDataPeople);
+            .then((response) => {
+              if(response.ok){
+               return response.json()
+              }
+              alert("no se encontro la persona")
+              throw new Error(`No encontramos el dato`)
+            })
+            .then(paintDataPeople)
+            .catch(err => console.log(err))
         }
 
         $btn.addEventListener("click", () => {
