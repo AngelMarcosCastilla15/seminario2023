@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Eventos</title>
+</head>
+<body>
+  <button id="boton1" type="button">Botom 1</button>
+  <button id="boton2" type="button">Botom 2</button>  
+</body>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+      // declaracion de funciones
+      
+      function saludar(){
+        console.log("ola") 
+      }
+
+      // manejo de eventos
+      const btn1 = document.getElementById("boton1")
+      const btn2 = document.querySelector("#boton2")
+
+      btn1.addEventListener("click", (e) =>{
+        console.log("boton 1 click");
+      })  
+
+      btn2.addEventListener("click", saludar)
+
+  })
+</script>
+</html>

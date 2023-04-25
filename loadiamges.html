@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Load images
+  </title>
+</head>
+<body>
+  <button id="image1" type="button">Memoria Ram</button>
+  <button id="image2" type="button">Microprocesador</button>
+  <button id="image3" type="button">Unidad estado solido</button>  
+  <img src="" alt="" id="foto">
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const bt1 = document.getElementById("image1")
+      const bt2 = document.getElementById("image2")
+      const bt3 = document.getElementById("image3")
+      const foto = document.getElementById("foto")
+
+      function loadImages(nombre){
+        fetch(`img/${nombre}`)
+        .then(response => response.blob())
+        .then(dato =>{
+          console.log(dato)
+          foto.setAttribute("src", URL.createObjectURL(dato))
+        })
+      }
+
+      bt1.addEventListener("click",()=>loadImages("ram.jpg") )
+      bt2.addEventListener("click",()=>loadImages("microprocesador.jpg") )
+      bt3.addEventListener("click",()=>loadImages("ssd.jpg") )
+
+    })
+  </script>
+</body>
+</html>

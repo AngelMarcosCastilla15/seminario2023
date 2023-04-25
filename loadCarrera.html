@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EJEMPLO 1 FETCH</title>
+</head>
+<body>
+  <button type="button" id="getdata">Obtener Datos</button>
+  <select name="carreras" id="carreras">
+    <option value=""> No hay datos</option>
+  </select>
+  <script>
+    document.addEventListener("DOMContentLoaded", ()=>{
+      const btnCarga =document.getElementById("getdata")
+      const lsCarreas =document.getElementById("carreras")
+      // utilizar la api fetch (AJAX / asincrono)
+      btnCarga.addEventListener("click", () => {
+       /*  fetch("datos.php")
+        .then(response => response.json() )
+        .then(data => console.log(data)) */
+
+
+      /* fetch("datos.php")
+        .then(response => response.json())
+        .then(datos => {
+          datos.forEach(element => {
+            console.log(element)
+          });
+        }
+        ) */
+
+        fetch("datos.php")
+        .then(response => response.json())
+        .then(carreras => {
+          lsCarreas.innerHTML = "<option value=''> No hay datos</option>"
+          carreras.forEach(carrera => {
+            const optionTag = document.createElement("option")
+            optionTag.value = carrera.codigo
+            optionTag.text = carrera.nombre
+            lsCarreas.appendChild(optionTag)
+          });
+        })
+      })
+
+    })
+  </script>
+</body>
+</html>
