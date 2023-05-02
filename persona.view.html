@@ -11,12 +11,20 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    <style>
+      .visor{
+        max-width: 300px;
+        aspect-ratio: 1/1;
+        object-fit: cover;
+      }
+    </style>
   </head>
+  
   <body>
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          <form action="" autocomplete="off">
+          <form action="" enctype="multipart/form-data" autocomplete="off">
             <div class="mb-3">
               <label for="apellidos" class="form-label">Apellido</label>
               <input
@@ -38,6 +46,7 @@
             <div class="mb-3">
               <label for="fotografia" class="form-label">fotografia</label>
               <input
+                accept=".jpg"
                 type="file"
                 id="fotografia"
                 name="fotografia"
@@ -45,7 +54,11 @@
               />
             </div>
             <div class="mb-3">
-              <button class="btn btn-primary"> guardar</button>
+              
+              <img src="" alt="" id="preview" class="visor">
+            </div>
+            <div class="mb-3 d-grid gap-2">
+              <button type="button" id="guardar" class="btn btn-primary">guardar</button>
             </div>
           </form>
         </div>
@@ -53,5 +66,47 @@
         <div class="col-md-6"></div>
       </div>
     </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded",() =>{
+        const $ = selector => document.querySelector(selector)
+
+        const inputfile= $("#fotografia")
+        const visor = $("#preview")
+        const btGuardar = $("#guardar")
+
+        function register() {
+
+          if(confirm("Estas seguro de gurdar")){
+          
+            const fd = new FormData();
+            fd.append("operacion","registrar");
+            fd.append("apellidos",$("#apellidos").value);
+            fd.append("nombres",$("#nombres").value);
+            fd.append("fotografia",$("#fotografia").files[0]);
+          
+            fetch("persona.php",{
+              method: "POST",
+              body: fd
+            })
+            .then(res => res.json())
+            .then(datos => {
+              console.log(datos)
+            })
+          
+          }
+
+        }
+
+        btGuardar.addEventListener("click", register)
+
+        inputfile.addEventListener("change", (e) => {
+          if(inputfile.files.length > 0){
+            const patchImg = URL.createObjectURL(inputfile.files[0]);
+            visor.src = patchImg
+          }
+        })
+      })
+    </script>
   </body>
 </html>
